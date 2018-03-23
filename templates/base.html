@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title%}Sheet{%endblock title%}</title>
+        <style>
+          nav li{
+              display: inline-grid;
+              list-style-type: none;
+              margin-left: 20px;
+          }
+          a, a:hover, a:visited{
+              color: blue;
+              padding: 5px;
+              border: 1px solid blue;
+              text-decoration: none;
+          }
+        </style>
+    </head>
+    <body>
+      <nav>
+        <ul>
+          <li><a href = "{% url 'friends:list'%}">Get Friends List</a></li>
+          <li><a href="{% url 'friends:create'%}">Create Friend</a></li>
+        </ul>
+      </nav>
+      <div class = 'wrapper'>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </body>
+</html>

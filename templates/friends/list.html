@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%} Friends-list {% endblock title%}
+
+{% block content %}
+  {% if form %}
+  <form class="sheet-form" action="{% url 'friends:list' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    After Row Number: <input type="number" maxlength="2" name = "row_number">
+    <br><br><input type="submit" value="Get">
+  </form>
+  {% endif %}
+{% for data in friends_data %}
+  <li>{{data}}</li>
+{% endfor %}
+{% endblock content %}
