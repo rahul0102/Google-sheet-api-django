@@ -64,7 +64,8 @@ def get_data_after_row(row=1, worksheet_title = "School_Friends"):
     row_length = worksheet.rows
     row = row + 1 # because from next row
     # print(col_length, row_length, worksheet)
-    list_of_data = worksheet.get_values((row,1), (row_length,col_length),include_empty=False) # (start, end)
+    list_of_data = worksheet.get_values((row,1), (row_length,col_length),
+        include_empty=False) # (start, end)
     # print(list_of_data)
     return json.dumps(list_of_data)
 def get_data_as_panda_frame(worksheet_title = "School_Friends"):
@@ -123,4 +124,4 @@ def list_sheets(client):
 sheet_url = "https://docs.google.com/spreadsheets/d/\
 1pFdoDO1PPTLphVz_dBLY4lwR0RLL2wQOXjIZDIC4ZrY/edit?usp=sharing"
 client = get_credential()
-print('Client: ',client)
+# print('Client: ', client.oauth.__dict__)
