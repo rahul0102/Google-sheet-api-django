@@ -1,12 +1,14 @@
 {% extends 'base.html'%}
 {% block title%} Friends-create {% endblock title %}
 {% block content %}
+<!-- <h3 style="color:red;">{{form.errors}}</h3> -->
   {% if error_message %}
-    <h3 style="color:red;">{{error_message}}</h3>
+    <h5 class="w3-red w3-panel">{{error_message}}</h5>
   {% endif %}
   <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type= "submit" value ="Create">
+    <input class="w3-btn w3-border w3-border-blue w3-text-blue
+      w3-hover-blue w3-hover-text-white" type= "submit" value ="Create">
   </form>
 {% endblock content%}

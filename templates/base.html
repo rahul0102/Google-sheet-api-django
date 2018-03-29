@@ -1,31 +1,34 @@
+{% load static from staticfiles %}
+
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{% block title%}Sheet{%endblock title%}</title>
-        <style>
-          nav li{
-              display: inline-grid;
-              list-style-type: none;
-              margin-left: 20px;
-          }
-          a, a:hover, a:visited{
-              color: blue;
-              padding: 5px;
-              border: 1px solid blue;
-              text-decoration: none;
-          }
-        </style>
+        <title>{% block title %}Sheet{% endblock title %}</title>
+        {% block style %}
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% endblock style %}
     </head>
     <body>
-      <nav>
-        <ul>
-          <li><a href = "{% url 'friends:list'%}">Get Friends List</a></li>
-          <li><a href="{% url 'friends:create'%}">Create Friend</a></li>
-        </ul>
+      <nav class = "w3-bar w3-margin">
+        <!-- <ul class=""> -->
+        <a class="w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+            w3-hover-blue w3-hover-text-white w3-ripple"
+            \ href = "{% url 'friends:list'%}">Get Friends List</a>
+          <a class=" w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+            w3-hover-blue w3-hover-text-white w3-ripple" \
+            href="{% url 'friends:create'%}">Create Friend</a>
+          <a class="w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+            w3-hover-blue w3-hover-text-white w3-ripple" \
+            href="{% url 'friends:data_chart'%}">Data Chart</a>
+
+        <!-- </ul> -->
       </nav>
-      <div class = 'wrapper'>
+      <div class = 'wrapper w3-container '>
         {% block content %}
         {% endblock %}
       </div>
     </body>
+    {% block script %}
+    {% endblock script %}
 </html>

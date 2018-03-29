@@ -1,0 +1,29 @@
+/* .chart-wrapper{
+
+}
+.chart-container{
+  height: 400px;
+	min-width: 300px;
+	max-width: 800px;
+	margin: 0 auto;
+} */
+
+.chart-wrapper{
+/* 	horizontal-align:center; */
+	text-align:center;
+	padding:20px;
+/* 	display:inline-block; */
+
+	/* border:solid 1px; */
+
+}
+.chart-container{
+	display:inline-block;
+ 	height: 400px;
+ 	min-width:30%;
+ 	max-width:400px;
+	margin: 0 20px 10px auto;
+/* 	border:solid 0px; */
+	border-bottom:1px solid darkgrey;
+/* 	position:relative; */
+}

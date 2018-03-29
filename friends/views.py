@@ -1,4 +1,5 @@
 import json
+from collections import Counter
 
 from django.shortcuts import render
 # from django.views.generic.edit import CreateView
@@ -14,6 +15,8 @@ from core.utils import (
     save_data_to_worksheet,
     get_data_after_row,
     get_available_worksheets,
+    get_column_values,
+    get_birthday_month_count,
 )
 # Create your views here.
 
@@ -33,22 +36,23 @@ class FriendCreateView(View):
         # update the data to sheet
         WORKSHEET_CHOICE = get_available_worksheets()
         form = FriendCreateForm(request.POST, choices = WORKSHEET_CHOICE)
-        # print(form.data)
+        # print(form.data, '\n', form.is_valid())
+        # print(form.errors)
         if form.is_valid():
             row_data=[]
             form_data = (form.cleaned_data)
             # print(form_data)
             form_data['date_of_birth'] = form.cleaned_data['date_of_birth']\
-                .strftime('%x')
+                .strftime('%d/%m/%y')
             title = form_data.pop('worksheet_title')
-
+            print(form_data['date_of_birth'])
             for data in form_data.values():
                 row_data.append(data)
             save_data_to_worksheet(row_data,
                 worksheet_title = title)
             return HttpResponseRedirect(reverse('friends:list'))
         else:
-            form = FriendCreateForm()
+            # form = FriendCreateForm(choices = WORKSHEET_CHOICE)
             context = {
                 'form': form,
                 'error_message':"Some error occured!"
@@ -83,6 +87,22 @@ class FriendListView(View):
         return render(request, 'friends/list.html',context)
         # return HttpResponse("Some error-occured")
 
+class FriendChartView(View):
+    def get(self, request, *args, **kwargs):
+        #  get data from sheet
+        occupation_data = get_column_values(6, worksheet_title = "School_Friends")
+        occupation_data.pop(0)
+        occupation_data = dict(Counter(occupation_data))
+        print(occupation_data)
+
+        birthday_data = get_column_values(3, worksheet_title = "School_Friends")
+        birthday_data.pop(0)
+        birthday_count = get_birthday_month_count(birthday_data)
+        context = {
+            'birthday_data':birthday_count,
+            'occupation_data':occupation_data,
+        }
+        return render(request, 'friends/data_chart.html',context)
 # class FriendCreateView(CreateView):
 #     model = Friend
 #     fields = '__all__'

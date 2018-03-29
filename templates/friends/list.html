@@ -8,7 +8,8 @@
     {% csrf_token %}
     {{form.as_p}}
     After Row Number: <input type="number" maxlength="2" name = "row_number">
-    <br><br><input type="submit" value="Get">
+    <br><br><input class="w3-btn w3-border w3-border-blue w3-text-blue
+      w3-hover-blue w3-hover-text-white" type="submit" value="Get">
   </form>
   {% endif %}
 {% for data in friends_data %}

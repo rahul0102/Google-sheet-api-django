@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% load static from staticfiles %}
+
+{% block title %}Data-Chart{% endblock title %}
+
+{% block style %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/data_chart.css' %}">
+{% endblock style %}
+
+{% block content%}
+<div class="chart-wrapper">
+  <div id="chart-1" class = "chart-container">
+  </div>
+  <div id="chart-2" class = "chart-container">
+  </div>
+</div>
+{% endblock content%}
+
+{% block script %}
+{{block.super}}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src = "{% static 'js/data_chart.js' %}"></script>
+<script>
+  myChart('chart-1',{{birthday_data|safe}})
+  occupationChart('chart-2',{{occupation_data|safe}})
+</script>
+{% endblock script %}

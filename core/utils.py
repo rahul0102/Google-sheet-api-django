@@ -1,4 +1,6 @@
 import json
+from collections import Counter
+
 import pygsheets
 from pygsheets import SpreadsheetNotFound
 # class Sheet():
@@ -56,6 +58,29 @@ def get_available_worksheets():
     # print(counter, "inside")
     return worksheet_choices
 
+def get_birthday_month_count(birthday_list):
+    months = []
+    for b in birthday_list:
+        month = int(b.split('/')[1]) #getting month form birthday format : DD/MM/YYYY
+        months.append(num_to_month_str[month])
+    # sorting months list based on month order
+    months.sort(key = get_month_index)
+    # print(months)
+    # print(Counter(months))
+    return dict(Counter(months))
+
+def get_month_index(month):
+    return new_dict[month]
+
+def get_column_values(col_index = 1, worksheet_title = "School_Friends"):
+    sheet = open_sheet(client, url = sheet_url)
+    worksheet = sheet.worksheet_by_title(worksheet_title)
+
+    col_values = worksheet.get_col(col_index,  include_empty = False);
+    # print(col_values)
+    return col_values
+    pass
+
 def get_data_after_row(row=1, worksheet_title = "School_Friends"):
 
     sheet = open_sheet(client, url = sheet_url)
@@ -68,12 +93,14 @@ def get_data_after_row(row=1, worksheet_title = "School_Friends"):
         include_empty=False) # (start, end)
     # print(list_of_data)
     return json.dumps(list_of_data)
+
 def get_data_as_panda_frame(worksheet_title = "School_Friends"):
     sheet = open_sheet(client, url = sheet_url)
     worksheet = sheet.worksheet_by_title(worksheet_title)
     # get_as_df(has_header=True, index_colum=None, start=None, end=None, numerize=True, empty_value='')
     df = worksheet.get_as_df()
     print(df)
+
 def open_sheet(client, title = None, key = None, url = None):
     if title:
         return client.open(title)
@@ -124,4 +151,22 @@ def list_sheets(client):
 sheet_url = "https://docs.google.com/spreadsheets/d/\
 1pFdoDO1PPTLphVz_dBLY4lwR0RLL2wQOXjIZDIC4ZrY/edit?usp=sharing"
 client = get_credential()
+
+num_to_month_str = {
+    1: "January",
+	2: "February",
+	3: "March",
+	4: "April",
+	5: "May",
+	6: "June",
+	7: "July",
+	8: "August",
+	9: "September",
+	10: "October",
+	11: "November",
+	12: "December"
+}
+# reverse dict of num_to_month_str
+new_dict = dict(zip(num_to_month_str.values(),num_to_month_str.keys()))
+
 # print('Client: ', client.oauth.__dict__)
