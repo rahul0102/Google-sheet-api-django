@@ -10,25 +10,48 @@
         {% endblock style %}
     </head>
     <body>
-      <nav class = "w3-bar w3-margin">
-        <!-- <ul class=""> -->
-        <a class="w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
-            w3-hover-blue w3-hover-text-white w3-ripple"
-            \ href = "{% url 'friends:list'%}">Get Friends List</a>
-          <a class=" w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+      <header class="w3-white">
+        <nav class = " w3-bar w3-margin w3-padding-small">
+          <!-- <ul class=""> -->
+          <a class=" w3-mobile w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+              w3-hover-blue w3-hover-text-white w3-ripple "
+              \ href = "{% url 'friends:list'%}">Get Friends List</a>
+          <a class=" w3-mobile w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
             w3-hover-blue w3-hover-text-white w3-ripple" \
             href="{% url 'friends:create'%}">Create Friend</a>
-          <a class="w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
+          <a class=" w3-mobile w3-bar-item w3-btn w3-border w3-border-blue w3-text-blue
             w3-hover-blue w3-hover-text-white w3-ripple" \
             href="{% url 'friends:data_chart'%}">Data Chart</a>
 
-        <!-- </ul> -->
-      </nav>
+          <!-- </ul> -->
+        </nav>
+      </header>
       <div class = 'wrapper w3-container '>
         {% block content %}
         {% endblock %}
       </div>
+      <footer class="w3-container w3-bottom">
+        <button id="topButton" onclick="goToTopFunction()" class = "w3-btn w3-round w3-card w3-blue w3-right" style="display:none;">Top</button>
+      </footer>
     </body>
     {% block script %}
+    <script>
+    // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+              document.getElementById("topButton").style.display = "block";
+          } else {
+              document.getElementById("topButton").style.display = "none";
+          }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function goToTopFunction() {
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
     {% endblock script %}
 </html>

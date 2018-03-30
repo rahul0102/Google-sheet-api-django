@@ -11,8 +11,11 @@
     <br><br><input class="w3-btn w3-border w3-border-blue w3-text-blue
       w3-hover-blue w3-hover-text-white" type="submit" value="Get">
   </form>
-  {% endif %}
-{% for data in friends_data %}
-  <li>{{data}}</li>
-{% endfor %}
+{% else %}
+<ul class = "w3-ul w3-border w3-margin-bottom" style="width:70%;">
+  {% for data in friends_data %}
+    <li class="w3-hover-shadow w3-border-bottom w3-hover-border-blue"> {{data}}</li>
+  {% endfor %}
+</ul>
+{% endif %}
 {% endblock content %}
